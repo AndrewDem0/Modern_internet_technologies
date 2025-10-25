@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApplication.Models;
+using WebApplication.Data.Models;
 
-namespace WebApplication.Data
+namespace WebApplication.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
