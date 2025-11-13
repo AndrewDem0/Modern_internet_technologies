@@ -1,5 +1,5 @@
 .vs/
 
 # Standard .NET build output
-[Bb]in/
-[Oo]bj/
+**/[Bb]in/
+**/[Oo]bj/
