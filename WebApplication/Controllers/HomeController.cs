@@ -1,21 +1,25 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Data.Models;
+using WebApplication.Data.Interfaces;
 
 namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IWebAppRepository _repository;
+
+        public HomeController(IWebAppRepository repository)
         {
-            _logger = logger;
+            _repository = repository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var users = _repository.All<ApplicationUser>();
+
+            return View(users); 
         }
 
         public IActionResult Privacy()
