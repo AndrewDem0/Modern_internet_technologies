@@ -18,7 +18,7 @@ namespace WebApplication.Controllers
             _config = config;
         }
 
-        public async Task<IActionResult> Index()
+        public Task<IActionResult> Index()
         {
             var users = _repository.All<ApplicationUser>();
 
