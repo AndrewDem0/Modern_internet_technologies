@@ -13,6 +13,7 @@
           "Microsoft.AspNetCore.Identity.UI": "8.0.21",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.21",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.21",
+          "System.Threading.RateLimiting": "10.0.0",
           "WebApplication.Data": "1.0.0"
         },
         "runtime": {
@@ -977,6 +978,14 @@
       },
       "System.Text.Json/4.7.2": {},
       "System.Threading.Channels/6.0.0": {},
+      "System.Threading.RateLimiting/10.0.0": {
+        "runtime": {
+          "lib/net8.0/System.Threading.RateLimiting.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.25.52411"
+          }
+        }
+      },
       "System.Threading.Tasks.Extensions/4.5.4": {},
       "System.Windows.Extensions/6.0.0": {
         "dependencies": {
@@ -1597,6 +1606,13 @@
       "sha512": "sha512-TY8/9+tI0mNaUMgntOxxaq2ndTkdXqLSxvPmas7XEqOlv9lQtB7wLjYGd756lOaO7Dvb5r/WXhluM+0Xe87v5Q==",
       "path": "system.threading.channels/6.0.0",
       "hashPath": "system.threading.channels.6.0.0.nupkg.sha512"
+    },
+    "System.Threading.RateLimiting/10.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0QWWGhde46NBFfMO/51QxfRNg7fnzhD8sxY38cP3HR5Sb1jkmSGpttKV1ILO2sJw7vSXQPtr3uqvXsN5iYsu5g==",
+      "path": "system.threading.ratelimiting/10.0.0",
+      "hashPath": "system.threading.ratelimiting.10.0.0.nupkg.sha512"
     },
     "System.Threading.Tasks.Extensions/4.5.4": {
       "type": "package",
