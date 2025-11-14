@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Threading.RateLimiting;
 using WebApplication.Configuration;
 using WebApplication.Data.Data;
 using WebApplication.Data.Interfaces;
@@ -49,6 +51,43 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IWebAppRepository, WebAppRepository>();
 
+// Configure Rate Limiting
+builder.Services.AddRateLimiter(options =>
+{
+    options.OnRejected = (context, _) =>
+    {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        return new ValueTask();
+    };
+
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    {
+        if (httpContext.User.Identity?.IsAuthenticated == true)
+        {
+            var userId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+            return RateLimitPartition.GetFixedWindowLimiter(userId, _ =>
+                new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = 10,
+                    Window = TimeSpan.FromMinutes(1),
+                    AutoReplenishment = true // maybe set explicitly
+                });
+        }
+        else
+        {
+            var ip = httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown_ip";
+            return RateLimitPartition.GetFixedWindowLimiter(ip, _ =>
+                new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = 5,
+                    Window = TimeSpan.FromMinutes(1),
+                    AutoReplenishment = true
+                });
+        }
+    });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -68,7 +107,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRateLimiter();
 
 app.MapControllerRoute(
     name: "default",
