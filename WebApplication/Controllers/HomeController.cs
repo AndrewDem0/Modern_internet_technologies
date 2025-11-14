@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Data.Models;
 using WebApplication.Data.Interfaces;
+using WebApplication.Configuration;
 
 namespace WebApplication.Controllers
 {
@@ -9,15 +10,21 @@ namespace WebApplication.Controllers
     {
 
         private readonly IWebAppRepository _repository;
+        private readonly WebAppConfiguration _config;
 
-        public HomeController(IWebAppRepository repository)
+        public HomeController(IWebAppRepository repository, WebAppConfiguration config)
         {
             _repository = repository;
+            _config = config;
         }
 
         public async Task<IActionResult> Index()
         {
             var users = _repository.All<ApplicationUser>();
+
+            // Access configuration settings
+            ViewData["ApplicationName"] = _config.ApplicationName;
+            ViewData["ApiUrl"] = _config.MySpecificSetting?.ApiUrl;
 
             return View(users); 
         }

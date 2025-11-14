@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using WebApplication.Configuration;
 using WebApplication.Data.Data;
 using WebApplication.Data.Interfaces;
 using WebApplication.Data.Repositories;
@@ -25,6 +26,16 @@ if (builder.Environment.IsDevelopment())
 }
 
 builder.Configuration.AddEnvironmentVariables();
+
+// Bind configuration sections to strongly typed classes
+var webAppConfiguration = builder.Configuration.Get<WebAppConfiguration>();
+
+if (webAppConfiguration == null)
+{
+    throw new InvalidOperationException("WebAppConfiguration section is missing or empty.");
+}
+
+builder.Services.AddSingleton(webAppConfiguration);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");

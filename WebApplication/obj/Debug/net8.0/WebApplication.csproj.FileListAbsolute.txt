@@ -156,3 +156,5 @@ C:\My PC\4 курс\modern internet technologies\WebApplication\obj\Debug\net8.0
 C:\My PC\4 курс\modern internet technologies\WebApplication\obj\Debug\net8.0\WebApplication.pdb
 C:\My PC\4 курс\modern internet technologies\WebApplication\obj\Debug\net8.0\WebApplication.genruntimeconfig.cache
 C:\My PC\4 курс\modern internet technologies\WebApplication\obj\Debug\net8.0\ref\WebApplication.dll
+C:\My PC\4 курс\modern internet technologies\WebApplication\bin\Debug\net8.0\appsettings.Production.json
+C:\My PC\4 курс\modern internet technologies\WebApplication\bin\Debug\net8.0\sharedsettings.json
