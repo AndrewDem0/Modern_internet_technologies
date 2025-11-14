@@ -22,6 +22,9 @@ namespace WebApplication.Controllers
         {
             var users = _repository.All<ApplicationUser>();
 
+            // Example of accessing a specific configuration value
+            var currentApiKey = _config.MySpecificSetting?.ApiKey;
+
             // Access configuration settings
             ViewData["ApplicationName"] = _config.ApplicationName;
             ViewData["ApiUrl"] = _config.MySpecificSetting?.ApiUrl;
