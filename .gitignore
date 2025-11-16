@@ -3,8 +3,3 @@
 # Standard .NET build output
 **/[Bb]in/
 **/[Oo]bj/
-
-WebApplication/bin/
-WebApplication.Data/bin/
-WebApplication/obj/
-WebApplication.Data/obj/
