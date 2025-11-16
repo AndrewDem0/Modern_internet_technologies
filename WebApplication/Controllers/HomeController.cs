@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication.Data.Models;
 using WebApplication.Data.Interfaces;
 using WebApplication.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication.Controllers
 {
@@ -17,7 +18,7 @@ namespace WebApplication.Controllers
             _repository = repository;
             _config = config;
         }
-
+        [AllowAnonymous]
         public Task<IActionResult> Index()
         {
             var users = _repository.All<ApplicationUser>();
@@ -28,12 +29,14 @@ namespace WebApplication.Controllers
             return Task.FromResult<IActionResult>(View(users));
         }
 
+
         public IActionResult Privacy()
         {
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [AllowAnonymous]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
