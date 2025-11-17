@@ -97,6 +97,11 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
+
+    options.AddPolicy("ArchiveAccessPolicy", policy =>
+    {
+        policy.RequireClaim("IsVerifiedClient", "true");
+    });
 });
 
 var app = builder.Build();
