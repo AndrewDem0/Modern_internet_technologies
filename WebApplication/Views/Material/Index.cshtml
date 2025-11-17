@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WebApplication.Data.Models.Material>
+
+@{
+    ViewData["Title"] = "My Materials";
+}
+
+<h1>My Materials</h1>
+<p>Тут відображаються лише матеріали, які ви створили.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

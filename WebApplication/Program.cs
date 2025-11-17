@@ -9,6 +9,7 @@ using WebApplication.Data.Data;
 using WebApplication.Data.Interfaces;
 using WebApplication.Data.Models;
 using WebApplication.Data.Repositories;
+using WebApplication.Authorization;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
@@ -102,7 +103,15 @@ builder.Services.AddAuthorization(options =>
     {
         policy.RequireClaim("IsVerifiedClient", "true");
     });
+
+    options.AddPolicy("CanManageMaterial", policy =>
+    {
+        policy.AddRequirements(new IsAuthorRequirement());
+    });
 });
+
+// Register the authorization handler
+builder.Services.AddScoped<IAuthorizationHandler, IsAuthorHandler>();
 
 var app = builder.Build();
 
