@@ -47,5 +47,11 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+
+        [Authorize(Policy = "PremiumAccess")]
+        public IActionResult Premium()
+        {
+            return View();
+        }
     }
 }

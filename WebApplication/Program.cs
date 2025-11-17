@@ -108,10 +108,16 @@ builder.Services.AddAuthorization(options =>
     {
         policy.AddRequirements(new IsAuthorRequirement());
     });
+
+    options.AddPolicy("PremiumAccess", policy =>
+        policy.AddRequirements(new MinimumWorkingHoursRequirement(100)));
 });
 
 // Register the authorization handler
 builder.Services.AddScoped<IAuthorizationHandler, IsAuthorHandler>();
+
+// Register the MinimumWorkingHoursHandler
+builder.Services.AddScoped<IAuthorizationHandler, MinimumWorkingHoursHandler>();
 
 var app = builder.Build();
 

@@ -126,8 +126,12 @@ namespace WebApplication.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+                    //Add IsVerifiedClient claim
                     var newClaim = new Claim("IsVerifiedClient", "true");
                     await _userManager.AddClaimAsync(user, newClaim);
+
+                    //Add WorkingHours claim with default value 150
+                    await _userManager.AddClaimAsync(user, new Claim("WorkingHours", "150"));
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
