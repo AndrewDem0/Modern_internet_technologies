@@ -53,5 +53,11 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+
+        [Authorize(Policy = "ForumAccess")]
+        public IActionResult Forum()
+        {
+            return View();
+        }
     }
-}
+ }

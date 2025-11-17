@@ -111,6 +111,9 @@ builder.Services.AddAuthorization(options =>
 
     options.AddPolicy("PremiumAccess", policy =>
         policy.AddRequirements(new MinimumWorkingHoursRequirement(100)));
+
+    options.AddPolicy("ForumAccess", policy =>
+        policy.AddRequirements(new ForumAccessRequirement()));
 });
 
 // Register the authorization handler
@@ -118,6 +121,9 @@ builder.Services.AddScoped<IAuthorizationHandler, IsAuthorHandler>();
 
 // Register the MinimumWorkingHoursHandler
 builder.Services.AddScoped<IAuthorizationHandler, MinimumWorkingHoursHandler>();
+
+// Register the ForumAccessHandler
+builder.Services.AddScoped<IAuthorizationHandler, ForumAccessHandler>();
 
 var app = builder.Build();
 

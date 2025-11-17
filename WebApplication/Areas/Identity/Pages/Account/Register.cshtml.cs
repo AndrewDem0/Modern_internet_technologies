@@ -133,6 +133,9 @@ namespace WebApplication.Areas.Identity.Pages.Account
                     //Add WorkingHours claim with default value 150
                     await _userManager.AddClaimAsync(user, new Claim("WorkingHours", "150"));
 
+                    //Add IsMentor claim with default value false
+                    await _userManager.AddClaimAsync(user, new Claim("IsMentor", "true"));
+
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
