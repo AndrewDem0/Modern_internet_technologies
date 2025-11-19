@@ -12,3 +12,26 @@
     
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="card-title">@Localizer["Localization Test"]</h4>
+        
+        <dl class="row">
+            <dt class="col-sm-4">@Localizer["Date Format:"]</dt>
+            <dd class="col-sm-8">
+                @DateTime.Now.ToLongDateString()
+            </dd>
+
+            <dt class="col-sm-4">@Localizer["Number Format:"]</dt>
+            <dd class="col-sm-8">
+                @(12345.6789.ToString("N"))
+            </dd>
+
+            <dt class="col-sm-4">@Localizer["Currency Format:"]</dt>
+            <dd class="col-sm-8">
+                @(12345.67.ToString("C"))
+            </dd>
+        </dl>
+    </div>
+</div>
