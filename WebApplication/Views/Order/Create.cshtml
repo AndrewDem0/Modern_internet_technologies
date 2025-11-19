@@ -1,0 +1,50 @@
+﻿@model WebApplication.ViewModels.OrderViewModel
+
+@{
+    ViewData["Title"] = "Створити замовлення";
+}
+
+<h2>Оформлення замовлення</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CustomerEmail" class="control-label"></label>
+                <input asp-for="CustomerEmail" class="form-control" />
+                <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ConfirmCustomerEmail" class="control-label"></label>
+                <input asp-for="ConfirmCustomerEmail" class="form-control" />
+                <span asp-validation-for="ConfirmCustomerEmail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Замовити" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
