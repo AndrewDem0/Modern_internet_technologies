@@ -125,6 +125,14 @@ builder.Services.AddScoped<IAuthorizationHandler, MinimumWorkingHoursHandler>();
 // Register the ForumAccessHandler
 builder.Services.AddScoped<IAuthorizationHandler, ForumAccessHandler>();
 
+// Configure Localization
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
