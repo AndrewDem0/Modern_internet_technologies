@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication.ViewModels
 {
@@ -21,6 +22,7 @@ namespace WebApplication.ViewModels
         public decimal Price { get; set; }
 
         [Required]
+        [Remote(action: "VerifyEmail", controller: "Order")]
         [EmailAddress(ErrorMessage = "Некоректний формат Email.")]
         [Display(Name = "Email замовника")]
         public string CustomerEmail { get; set; }
