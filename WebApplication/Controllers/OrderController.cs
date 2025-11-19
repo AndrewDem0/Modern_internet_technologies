@@ -1,9 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication.ViewModels;
+using Microsoft.Extensions.Localization;
 namespace WebApplication.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly IStringLocalizer<OrderViewModel> _localizer;
+
+        public OrderController(IStringLocalizer<OrderViewModel> localizer)
+        {
+            _localizer = localizer;
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -43,13 +51,12 @@ namespace WebApplication.Controllers
 
                 if (totalAmount < 100)
                 {
-                    return Json($"Промокод '{promoCode}' діє лише для замовлень від 100 грн. Ваша сума: {totalAmount} грн.");
+                    return Json(_localizer["PromoCodeAmountError", promoCode, totalAmount].Value);
                 }
             }
             else
             {
-
-                return Json($"Промокод '{promoCode}' не знайдено.");
+                return Json(_localizer["PromoCodeInvalidError", promoCode].Value);
             }
 
             return Json(true);
