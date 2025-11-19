@@ -128,6 +128,19 @@ builder.Services.AddScoped<IAuthorizationHandler, ForumAccessHandler>();
 // Configure Localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+// define the list of supported cultures
+var supportedCultures = new[] { "en-US", "uk-UA", "fr-FR" };
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.SetDefaultCulture("en-US");
+
+    options.AddSupportedCultures(supportedCultures);
+
+    options.AddSupportedUICultures(supportedCultures);
+});
+
+//set up MVC with localization
 builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
