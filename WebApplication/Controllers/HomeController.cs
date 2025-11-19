@@ -1,9 +1,10 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using WebApplication.Data.Models;
-using WebApplication.Data.Interfaces;
-using WebApplication.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using System.Diagnostics;
+using WebApplication.Configuration;
+using WebApplication.Data.Interfaces;
+using WebApplication.Data.Models;
 
 namespace WebApplication.Controllers
 {
@@ -12,12 +13,15 @@ namespace WebApplication.Controllers
 
         private readonly IWebAppRepository _repository;
         private readonly WebAppConfiguration _config;
+        private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IWebAppRepository repository, WebAppConfiguration config)
+        public HomeController(IWebAppRepository repository, WebAppConfiguration config, IStringLocalizer<HomeController> localizer)
         {
             _repository = repository;
             _config = config;
+            _localizer = localizer;
         }
+
         [AllowAnonymous]
         public Task<IActionResult> Index()
         {
@@ -25,6 +29,7 @@ namespace WebApplication.Controllers
 
             ViewData["ApplicationName"] = _config.ApplicationName;
             ViewData["ApiUrl"] = _config.MySpecificSetting?.ApiUrl;
+            ViewData["WelcomeMessage"] = _localizer["WelcomeMessage"];
 
             return Task.FromResult<IActionResult>(View(users));
         }
