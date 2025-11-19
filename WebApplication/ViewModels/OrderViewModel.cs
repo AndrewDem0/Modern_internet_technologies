@@ -31,5 +31,10 @@ namespace WebApplication.ViewModels
         [Compare("CustomerEmail", ErrorMessage = "Email адреси не співпадають.")]
         [Display(Name = "Підтвердіть Email")]
         public string ConfirmCustomerEmail { get; set; }
+
+
+        [Display(Name = "Промокод")]
+        [Remote(action: "VerifyPromoCode", controller: "Order", AdditionalFields = "Price,Quantity")]
+        public string? PromoCode { get; set; }
     }
 }
