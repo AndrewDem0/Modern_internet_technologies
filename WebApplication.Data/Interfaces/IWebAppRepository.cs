@@ -10,5 +10,6 @@ namespace WebApplication.Data.Interfaces
     public interface IWebAppRepository : IRepository
     {
         Task<ApplicationUser?> GetUserByEmailAsync(string email);
+        Task DeleteAsync<T>(T entity) where T : class;
     }
 }

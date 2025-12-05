@@ -1,0 +1,52 @@
+﻿@model WebApplication.Data.Models.Car
+
+@{
+    ViewData["Title"] = "Видалити авто";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle-fill"></i> Ви впевнені, що хочете видалити це авто?</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-3">
+                             @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <img src="@Model.ImageUrl" class="img-fluid rounded" style="max-height: 150px; object-fit: cover;" alt="@Model.Model">
+                            }
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="card-title">@Model.Model</h3>
+                            <h4 class="text-muted">@Model.Price.ToString("C0")</h4>
+                            <hr>
+                            <dl class="row">
+                                <dt class="col-sm-4">Рік випуску:</dt>
+                                <dd class="col-sm-8">@Model.Year</dd>
+                                
+                                <dt class="col-sm-4">Пробіг:</dt>
+                                <dd class="col-sm-8">@Model.Mileage км</dd>
+
+                                <dt class="col-sm-4">Власник/Стан:</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.Condition)</dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning mt-3">
+                        <strong>Увага!</strong> Цю дію неможливо скасувати.
+                    </div>
+
+                    <form asp-action="Delete" class="d-flex justify-content-end gap-2 mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+                        <button type="submit" class="btn btn-danger">Підтвердити видалення</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

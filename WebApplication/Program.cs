@@ -184,7 +184,7 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<WebApplication.Data.Data.ApplicationDbContext>();
 
-        WebApplication.Data.Data.DbInitializer.Initialize(context);
+        WebApplication.Data.DbInitializer.Initialize(context);
     }
     catch (Exception ex)
     {

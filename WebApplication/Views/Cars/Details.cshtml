@@ -1,0 +1,67 @@
+﻿@model WebApplication.Data.Models.Car
+
+@{
+    ViewData["Title"] = Model.Model;
+}
+
+<div class="container mt-5 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Каталог</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Model</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow border-0">
+        <div class="row g-0">
+            <div class="col-md-6 bg-light d-flex align-items-center justify-content-center overflow-hidden" style="min-height: 400px;">
+                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="@Model.Model" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x400?text=No+Image';">
+                }
+                else
+                {
+                    <img src="https://placehold.co/600x400?text=No+Image" class="img-fluid" alt="No image">
+                }
+            </div>
+            <div class="col-md-6">
+                <div class="card-body p-4 p-lg-5">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h2 class="card-title fw-bold mb-1">@Model.Model</h2>
+                            <span class="badge bg-secondary">@Html.DisplayFor(model => model.Class)</span>
+                            <span class="badge bg-info text-dark ms-1">@Html.DisplayFor(model => model.Type)</span>
+                        </div>
+                        <h3 class="text-success fw-bold">@Model.Price.ToString("C0")</h3>
+                    </div>
+
+                    <hr />
+                    
+                    <div class="row gy-3 mb-4">
+                        <div class="col-6">
+                            <small class="text-muted d-block">Рік випуску</small>
+                            <span class="fs-5 fw-bold">@Model.Year</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">Пробіг</small>
+                            <span class="fs-5 fw-bold">@Model.Mileage км</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">Двигун</small>
+                            <span class="fs-5 fw-bold">@Html.DisplayFor(model => model.EngineVolume)</span>
+                        </div>
+                        <div class="col-6">
+                            <small class="text-muted d-block">Стан</small>
+                            <span class="fs-5 fw-bold">@Html.DisplayFor(model => model.Condition)</span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a asp-action="Index" class="btn btn-outline-dark btn-lg">Назад до каталогу</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
