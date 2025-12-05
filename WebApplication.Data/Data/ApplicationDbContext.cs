@@ -11,5 +11,6 @@ namespace WebApplication.Data.Data
         {
         }
         public DbSet<Material> Materials { get; set; }
+        public DbSet<Car> Cars { get; set; }
     }
 }
