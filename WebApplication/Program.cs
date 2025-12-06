@@ -13,18 +13,11 @@ using WebApplication.Authorization;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
-
 // Configure secure configuration sources
 builder.Configuration.Sources.Clear();
-
-builder.Configuration
-    .AddJsonFile("sharedsettings.json", optional: true, reloadOnChange: true);
-
-builder.Configuration
-    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
-builder.Configuration
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+builder.Configuration.AddJsonFile("sharedsettings.json", optional: true, reloadOnChange: true);
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
 if (builder.Environment.IsDevelopment())
 {
@@ -33,17 +26,13 @@ if (builder.Environment.IsDevelopment())
 
 builder.Configuration.AddEnvironmentVariables();
 
-// Bind configuration sections to strongly typed classes
 var webAppConfiguration = builder.Configuration.Get<WebAppConfiguration>();
-
 if (webAppConfiguration == null)
 {
     throw new InvalidOperationException("WebAppConfiguration section is missing or empty.");
 }
-
 builder.Services.AddSingleton(webAppConfiguration);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString, b => b.MigrationsAssembly("WebApplication")));
@@ -74,7 +63,7 @@ builder.Services.AddRateLimiter(options =>
                 {
                     PermitLimit = 1000,
                     Window = TimeSpan.FromMinutes(1),
-                    AutoReplenishment = true // maybe set explicitly
+                    AutoReplenishment = true
                 });
         }
         else
@@ -114,41 +103,37 @@ builder.Services.AddAuthorization(options =>
 
     options.AddPolicy("ForumAccess", policy =>
         policy.AddRequirements(new ForumAccessRequirement()));
+
+
+    options.AddPolicy("AdminOnly", policy =>
+        policy.AddRequirements(new AdminEmailRequirement("admin@gmail.com")));
 });
 
-// Register the authorization handler
+
 builder.Services.AddScoped<IAuthorizationHandler, IsAuthorHandler>();
-
-// Register the MinimumWorkingHoursHandler
 builder.Services.AddScoped<IAuthorizationHandler, MinimumWorkingHoursHandler>();
-
-// Register the ForumAccessHandler
 builder.Services.AddScoped<IAuthorizationHandler, ForumAccessHandler>();
 
-// Configure Localization
+
+builder.Services.AddSingleton<IAuthorizationHandler, AdminEmailHandler>();
+
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-// define the list of supported cultures
-var supportedCultures = new[] { "en-US", "uk-UA", "fr-FR" };
+var supportedCultures = new[] { "en-US", "uk-UA" };
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     options.SetDefaultCulture("en-US");
-
     options.AddSupportedCultures(supportedCultures);
-
     options.AddSupportedUICultures(supportedCultures);
 });
 
-//set up MVC with localization
 builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
 
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -156,7 +141,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -164,6 +148,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRequestLocalization();
+
+var localizationOptions = app.Services.GetService<Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(localizationOptions.Value);
 
 app.UseRouting();
 
@@ -177,14 +164,14 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
+// Ініціалізація бази даних
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
-        var context = services.GetRequiredService<WebApplication.Data.Data.ApplicationDbContext>();
-
-        WebApplication.Data.DbInitializer.Initialize(context);
+        // Передаємо services, щоб DbInitializer міг отримати UserManager
+        await WebApplication.Data.DbInitializer.Initialize(services);
     }
     catch (Exception ex)
     {

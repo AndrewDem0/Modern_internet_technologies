@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
 using WebApplication.Data.Data;
 using WebApplication.Data.Models;
@@ -7,14 +9,31 @@ namespace WebApplication.Data
 {
     public static class DbInitializer
     {
-        public static void Initialize(ApplicationDbContext context)
+        public static async Task Initialize(IServiceProvider serviceProvider)
         {
+            var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
             context.Database.EnsureCreated();
 
-            // Якщо дані вже є - не додаємо нові
+            var adminEmail = "admin@gmail.com";
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+            if (adminUser == null)
+            {
+                adminUser = new ApplicationUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    EmailConfirmed = true
+                };
+
+                await userManager.CreateAsync(adminUser, "Admin@123");
+            }
             if (context.Cars.Any())
             {
-                return;
+                context.Cars.RemoveRange(context.Cars);
+                context.SaveChanges();
             }
 
             var cars = new Car[]
@@ -29,8 +48,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.Used,
                     Mileage = 15000,
                     Type = CarType.Sedan,
-                    // Білий седан
-                    ImageUrl = "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото білої Toyota Corolla Sedan
+                    ImageUrl = "https://cdn2.riastatic.com/photos/ir/new/auto/photo/toyota_corolla__624647577-620x415x70.jpg"
                 },
                 new Car
                 {
@@ -42,8 +61,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.New,
                     Mileage = 0,
                     Type = CarType.Hatchback,
-                    // Синій автомобіль
-                    ImageUrl = "https://images.unsplash.com/photo-1606152421811-aa9116c92563?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото синього Honda Civic Hatchback
+                    ImageUrl = "https://cdn.shopify.com/s/files/1/2452/9929/files/350114454_6537828239618872_2212741164459001736_n_1024x1024.jpg?v=1685328945"
                 },
                 new Car
                 {
@@ -55,8 +74,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.Used,
                     Mileage = 5000,
                     Type = CarType.Sedan,
-                    // Спорткар (вид ззаду/збоку)
-                    ImageUrl = "https://images.unsplash.com/photo-1600712242805-5f78671b24da?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото сріблястого Nissan GT-R
+                    ImageUrl = "https://motorcar.com.ua/wp-content/uploads/2024/06/nissan-gt-r-r35-final-editions-2.jpg"
                 },
                 new Car
                 {
@@ -68,8 +87,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.New,
                     Mileage = 10,
                     Type = CarType.Sedan,
-                    // Червоний кабріолет
-                    ImageUrl = "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото червоної Mazda MX-5
+                    ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Mazda_Roadster_ND.jpg/1200px-Mazda_Roadster_ND.jpg"
                 },
                 new Car
                 {
@@ -81,8 +100,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.Used,
                     Mileage = 22000,
                     Type = CarType.Hatchback,
-                    // Сірий хетчбек
-                    ImageUrl = "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото Subaru Impreza Hatchback
+                    ImageUrl = "https://p.turbosquid.com/ts-thumb/xq/4yWEhv/pk/subaru_impreza_sti_wrc_2006_0000/jpg/1709225106/600x600/fit_q87/7aadef1ea165ceaa6b721920b8948819b72762cd/subaru_impreza_sti_wrc_2006_0000.jpg"
                 },
                 new Car
                 {
@@ -94,8 +113,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.New,
                     Mileage = 0,
                     Type = CarType.SUV,
-                    // Білий позашляховик
-                    ImageUrl = "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото Mitsubishi Outlander
+                    ImageUrl = "https://i.guim.co.uk/img/media/712a11c56758e939fa9303c13a9cf6b1c37cb207/1568_1239_3853_2311/master/3853.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=8dba5b39d4baea9c562b407dfb42d523"
                 },
                 new Car
                 {
@@ -107,8 +126,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.New,
                     Mileage = 0,
                     Type = CarType.SUV,
-                    // Преміум кросовер
-                    ImageUrl = "https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото Lexus RX
+                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZiwZWcruYyMys_096NF6ABA30LdbnJBayzA&s"
                 },
                 new Car
                 {
@@ -120,8 +139,8 @@ namespace WebApplication.Data
                     Condition = CarCondition.Used,
                     Mileage = 18000,
                     Type = CarType.Hatchback,
-                    // Червоний компакт
-                    ImageUrl = "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=600&q=80"
+                    // Реальне фото червоного Suzuki Swift
+                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZfSCgOj-gt7ox_MrTOeV3MRnE9-Wjyh_q1g&s"
                 }
             };
 

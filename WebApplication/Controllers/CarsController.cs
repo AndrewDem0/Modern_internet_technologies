@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore; // Потрібен для FirstOrDefaultAsync
+using System.Threading.Tasks;
 using WebApplication.Data.Interfaces;
 using WebApplication.Data.Models;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -15,13 +16,10 @@ namespace WebApplication.Controllers
             _repository = repository;
         }
 
-        // GET: Cars
         public async Task<IActionResult> Index(int? pageNumber)
         {
-            // Використовуємо ваш репозиторій
             var carsQuery = _repository.ReadAll<Car>();
 
-            // Для сітки по 3 авто в ряд краще брати число, кратне 3 (наприклад, 6)
             int pageSize = 6 ;
 
             var paginatedCars = await PaginatedList<Car>.CreateAsync(carsQuery, pageNumber ?? 1, pageSize);
@@ -29,7 +27,6 @@ namespace WebApplication.Controllers
             return View(paginatedCars);
         }
 
-        // GET: Cars/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,7 +34,6 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            // Шукаємо авто через ReadAll + фільтр
             var car = await _repository.ReadAll<Car>()
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -49,15 +45,15 @@ namespace WebApplication.Controllers
             return View(car);
         }
 
-        // GET: Cars/Create
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Cars/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Create(Car car)
         {
             if (ModelState.IsValid)
@@ -68,6 +64,7 @@ namespace WebApplication.Controllers
             return View(car);
         }
 
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -75,7 +72,6 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            // Знаходимо авто, яке хочемо видалити
             var car = await _repository.ReadAll<Car>()
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -87,18 +83,17 @@ namespace WebApplication.Controllers
             return View(car);
         }
 
-        // POST: Cars/Delete/5
-        [HttpPost, ActionName("Delete")] // Важливо: вказуємо, що це дія Delete
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // Шукаємо авто за ID
             var car = await _repository.ReadAll<Car>()
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (car != null)
             {
-                // Викликаємо метод видалення з репозиторію
+
                 await _repository.DeleteAsync(car);
             }
 

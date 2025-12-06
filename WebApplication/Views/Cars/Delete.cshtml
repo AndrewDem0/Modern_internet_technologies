@@ -1,7 +1,9 @@
-﻿@model WebApplication.Data.Models.Car
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model WebApplication.Data.Models.Car
 
 @{
-    ViewData["Title"] = "Видалити авто";
+    ViewData["Title"] = Localizer["Delete Car"];
 }
 
 <div class="container mt-5">
@@ -9,7 +11,7 @@
         <div class="col-md-8">
             <div class="card border-danger shadow">
                 <div class="card-header bg-danger text-white">
-                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle-fill"></i> Ви впевнені, що хочете видалити це авто?</h4>
+                    <h4 class="mb-0"><i class="bi bi-exclamation-triangle-fill"></i> @Localizer["Are you sure you want to delete this car?"]</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -24,26 +26,26 @@
                             <h4 class="text-muted">@Model.Price.ToString("C0")</h4>
                             <hr>
                             <dl class="row">
-                                <dt class="col-sm-4">Рік випуску:</dt>
+                                <dt class="col-sm-4">@Localizer["Year"]:</dt>
                                 <dd class="col-sm-8">@Model.Year</dd>
                                 
-                                <dt class="col-sm-4">Пробіг:</dt>
-                                <dd class="col-sm-8">@Model.Mileage км</dd>
+                                <dt class="col-sm-4">@Localizer["Mileage"]:</dt>
+                                <dd class="col-sm-8">@Model.Mileage @Localizer["km"]</dd>
 
-                                <dt class="col-sm-4">Власник/Стан:</dt>
+                                <dt class="col-sm-4">@Localizer["Condition"]:</dt>
                                 <dd class="col-sm-8">@Html.DisplayFor(model => model.Condition)</dd>
                             </dl>
                         </div>
                     </div>
 
                     <div class="alert alert-warning mt-3">
-                        <strong>Увага!</strong> Цю дію неможливо скасувати.
+                        <strong>@Localizer["Warning!"]</strong> @Localizer["This action cannot be undone."]
                     </div>
 
                     <form asp-action="Delete" class="d-flex justify-content-end gap-2 mt-4">
                         <input type="hidden" asp-for="Id" />
-                        <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
-                        <button type="submit" class="btn btn-danger">Підтвердити видалення</button>
+                        <a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+                        <button type="submit" class="btn btn-danger">@Localizer["Confirm Delete"]</button>
                     </form>
                 </div>
             </div>

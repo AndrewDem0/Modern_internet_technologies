@@ -117,7 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
+  <data name="Home Page" xml:space="preserve">
     <value>Головна сторінка</value>
+  </data>
+  <data name="Find Your Dream Car" xml:space="preserve">
+    <value>Знайди авто своєї мрії</value>
+  </data>
+  <data name="Premium quality, verified history, and best prices in the region." xml:space="preserve">
+    <value>Преміальна якість, перевірена історія та найкращі ціни в регіоні.</value>
+  </data>
+  <data name="Browse Catalog" xml:space="preserve">
+    <value>Переглянути каталог</value>
+  </data>
+  <data name="Certified Quality" xml:space="preserve">
+    <value>Сертифікована якість</value>
+  </data>
+  <data name="All our cars undergo a rigorous 150-point inspection before sale. We guarantee the technical condition and legal purity of every vehicle." xml:space="preserve">
+    <value>Всі наші авто проходять сувору перевірку по 150 пунктах. Ми гарантуємо технічний стан та юридичну чистоту кожного авто.</value>
+  </data>
+  <data name="Best Prices" xml:space="preserve">
+    <value>Найкращі ціни</value>
+  </data>
+  <data name="We monitor the market daily to offer you the most competitive prices. Flexible financing and trade-in options available." xml:space="preserve">
+    <value>Ми щодня моніторимо ринок, щоб запропонувати найвигідніші ціни. Доступні гнучкі умови кредитування та Trade-in.</value>
+  </data>
+  <data name="Fast Support" xml:space="preserve">
+    <value>Швидка підтримка</value>
+  </data>
+  <data name="Our team is ready to help you 24/7 with any questions regarding purchase, registration, or maintenance." xml:space="preserve">
+    <value>Наша команда готова допомогти вам 24/7 з будь-яких питань щодо покупки, реєстрації або обслуговування.</value>
+  </data>
+  <data name="More than just a dealership" xml:space="preserve">
+    <value>Більше ніж просто автосалон</value>
+  </data>
+  <data name="We don't just sell cars; we provide a lifestyle. Since 2010, we have helped over 5000 clients find their perfect vehicle. Our mission is to make the car buying process transparent, simple, and enjoyable." xml:space="preserve">
+    <value>Ми не просто продаємо авто, ми пропонуємо стиль життя. З 2010 року ми допомогли понад 5000 клієнтів знайти їх ідеальний автомобіль. Наша місія — зробити покупку прозорою, простою та приємною.</value>
+  </data>
+  <data name="See Available Cars" xml:space="preserve">
+    <value>Дивитись авто в наявності</value>
+  </data>
+  <data name="Happy Clients" xml:space="preserve">
+    <value>Задоволених клієнтів</value>
+  </data>
+  <data name="Cars in Stock" xml:space="preserve">
+    <value>Авто в наявності</value>
+  </data>
+  <data name="Years of Experience" xml:space="preserve">
+    <value>Років досвіду</value>
   </data>
 </root>

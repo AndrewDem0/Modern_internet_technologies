@@ -1,4 +1,6 @@
-﻿@model WebApplication.Data.Models.Car
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model WebApplication.Data.Models.Car
 
 @{
     ViewData["Title"] = Model.Model;
@@ -7,7 +9,7 @@
 <div class="container mt-5 mb-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-action="Index">Каталог</a></li>
+            <li class="breadcrumb-item"><a asp-action="Index">@Localizer["Catalog"]</a></li>
             <li class="breadcrumb-item active" aria-current="page">@Model.Model</li>
         </ol>
     </nav>
@@ -40,25 +42,25 @@
                     
                     <div class="row gy-3 mb-4">
                         <div class="col-6">
-                            <small class="text-muted d-block">Рік випуску</small>
+                            <small class="text-muted d-block">@Localizer["Year"]</small>
                             <span class="fs-5 fw-bold">@Model.Year</span>
                         </div>
                         <div class="col-6">
-                            <small class="text-muted d-block">Пробіг</small>
-                            <span class="fs-5 fw-bold">@Model.Mileage км</span>
+                            <small class="text-muted d-block">@Localizer["Mileage"]</small>
+                            <span class="fs-5 fw-bold">@Model.Mileage @Localizer["km"]</span>
                         </div>
                         <div class="col-6">
-                            <small class="text-muted d-block">Двигун</small>
+                            <small class="text-muted d-block">@Localizer["Engine"]</small>
                             <span class="fs-5 fw-bold">@Html.DisplayFor(model => model.EngineVolume)</span>
                         </div>
                         <div class="col-6">
-                            <small class="text-muted d-block">Стан</small>
+                            <small class="text-muted d-block">@Localizer["Condition"]</small>
                             <span class="fs-5 fw-bold">@Html.DisplayFor(model => model.Condition)</span>
                         </div>
                     </div>
 
                     <div class="d-grid gap-2">
-                        <a asp-action="Index" class="btn btn-outline-dark btn-lg">Назад до каталогу</a>
+                        <a asp-action="Index" class="btn btn-outline-dark btn-lg">@Localizer["Back to Catalog"]</a>
                     </div>
                 </div>
             </div>

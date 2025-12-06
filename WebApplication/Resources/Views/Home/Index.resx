@@ -117,7 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
+  <data name="Home Page" xml:space="preserve">
     <value>Home Page</value>
+  </data>
+  <data name="Find Your Dream Car" xml:space="preserve">
+    <value>Find Your Dream Car</value>
+  </data>
+  <data name="Premium quality, verified history, and best prices in the region." xml:space="preserve">
+    <value>Premium quality, verified history, and best prices in the region.</value>
+  </data>
+  <data name="Browse Catalog" xml:space="preserve">
+    <value>Browse Catalog</value>
+  </data>
+  <data name="Certified Quality" xml:space="preserve">
+    <value>Certified Quality</value>
+  </data>
+  <data name="All our cars undergo a rigorous 150-point inspection before sale. We guarantee the technical condition and legal purity of every vehicle." xml:space="preserve">
+    <value>All our cars undergo a rigorous 150-point inspection before sale. We guarantee the technical condition and legal purity of every vehicle.</value>
+  </data>
+  <data name="Best Prices" xml:space="preserve">
+    <value>Best Prices</value>
+  </data>
+  <data name="We monitor the market daily to offer you the most competitive prices. Flexible financing and trade-in options available." xml:space="preserve">
+    <value>We monitor the market daily to offer you the most competitive prices. Flexible financing and trade-in options available.</value>
+  </data>
+  <data name="Fast Support" xml:space="preserve">
+    <value>Fast Support</value>
+  </data>
+  <data name="Our team is ready to help you 24/7 with any questions regarding purchase, registration, or maintenance." xml:space="preserve">
+    <value>Our team is ready to help you 24/7 with any questions regarding purchase, registration, or maintenance.</value>
+  </data>
+  <data name="More than just a dealership" xml:space="preserve">
+    <value>More than just a dealership</value>
+  </data>
+  <data name="We don't just sell cars; we provide a lifestyle. Since 2010, we have helped over 5000 clients find their perfect vehicle. Our mission is to make the car buying process transparent, simple, and enjoyable." xml:space="preserve">
+    <value>We don't just sell cars; we provide a lifestyle. Since 2010, we have helped over 5000 clients find their perfect vehicle. Our mission is to make the car buying process transparent, simple, and enjoyable.</value>
+  </data>
+  <data name="See Available Cars" xml:space="preserve">
+    <value>See Available Cars</value>
+  </data>
+  <data name="Happy Clients" xml:space="preserve">
+    <value>Happy Clients</value>
+  </data>
+  <data name="Cars in Stock" xml:space="preserve">
+    <value>Cars in Stock</value>
+  </data>
+  <data name="Years of Experience" xml:space="preserve">
+    <value>Years of Experience</value>
   </data>
 </root>

@@ -2,36 +2,85 @@
 @inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = Localizer["Title"];
+    ViewData["Title"] = Localizer["Home Page"];
 }
 
-<div class="text-center">
-    <h1 class="display-4">@Localizer["Title"]</h1>
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" 
+     style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Honda_NSX_Le_Mans_%28GT1%29_front-right_Honda_Collection_Hall.jpg/1280px-Honda_NSX_Le_Mans_%28GT1%29_front-right_Honda_Collection_Hall.jpg'); 
+            background-size: cover; background-position: center; height: 85vh; border-radius: 20px; color: white; display: flex; align-items: center; justify-content: center;">
     
-    <p class="lead">@ViewData["WelcomeMessage"]</p>
-    
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="col-md-8 p-lg-5 mx-auto my-5">
+        <h1 class="display-3 fw-bold">@Localizer["Find Your Dream Car"]</h1>
+        <p class="lead fw-normal mb-4">@Localizer["Premium quality, verified history, and best prices in the region."]</p>
+        <a class="btn btn-primary btn-lg px-4 gap-3" asp-controller="Cars" asp-action="Index">
+            <i class="bi bi-car-front-fill"></i> @Localizer["Browse Catalog"]
+        </a>
+    </div>
 </div>
 
-<div class="card mt-4">
-    <div class="card-body">
-        <h4 class="card-title">@Localizer["Localization Test"]</h4>
-        
-        <dl class="row">
-            <dt class="col-sm-4">@Localizer["Date Format:"]</dt>
-            <dd class="col-sm-8">
-                @DateTime.Now.ToLongDateString()
-            </dd>
+<div class="container py-5">
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3 rounded-circle p-3 shadow-sm">
+                <i class="bi bi-shield-check fs-2 text-primary"></i>
+            </div>
+            <div>
+                <h2>@Localizer["Certified Quality"]</h2>
+                <p>@Localizer["All our cars undergo a rigorous 150-point inspection before sale. We guarantee the technical condition and legal purity of every vehicle."]</p>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3 rounded-circle p-3 shadow-sm">
+                <i class="bi bi-tag-fill fs-2 text-success"></i>
+            </div>
+            <div>
+                <h2>@Localizer["Best Prices"]</h2>
+                <p>@Localizer["We monitor the market daily to offer you the most competitive prices. Flexible financing and trade-in options available."]</p>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square bg-light text-dark flex-shrink-0 me-3 rounded-circle p-3 shadow-sm">
+                <i class="bi bi-clock-history fs-2 text-warning"></i>
+            </div>
+            <div>
+                <h2>@Localizer["Fast Support"]</h2>
+                <p>@Localizer["Our team is ready to help you 24/7 with any questions regarding purchase, registration, or maintenance."]</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <dt class="col-sm-4">@Localizer["Number Format:"]</dt>
-            <dd class="col-sm-8">
-                @(12345.6789.ToString("N"))
-            </dd>
+<div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img src="https://arabam-blog.mncdn.com/wp-content/uploads/2020/10/Ekran-goruntusu-2020-10-22-112928-1068x575.png" 
+                 class="d-block mx-lg-auto img-fluid rounded shadow-lg" alt="Car Key" width="700" height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold lh-1 mb-3">@Localizer["More than just a dealership"]</h1>
+            <p class="lead">@Localizer["We don't just sell cars; we provide a lifestyle. Since 2010, we have helped over 5000 clients find their perfect vehicle. Our mission is to make the car buying process transparent, simple, and enjoyable."]</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <a asp-controller="Cars" asp-action="Index" class="btn btn-outline-dark btn-lg px-4 me-md-2">@Localizer["See Available Cars"]</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <dt class="col-sm-4">@Localizer["Currency Format:"]</dt>
-            <dd class="col-sm-8">
-                @(12345.67.ToString("C"))
-            </dd>
-        </dl>
+<div class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-3">
+                <h2 class="display-4 fw-bold text-primary">5000+</h2>
+                <p class="text-white-50">@Localizer["Happy Clients"]</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h2 class="display-4 fw-bold text-success">300+</h2>
+                <p class="text-white-50">@Localizer["Cars in Stock"]</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h2 class="display-4 fw-bold text-warning">15</h2>
+                <p class="text-white-50">@Localizer["Years of Experience"]</p>
+            </div>
+        </div>
     </div>
 </div>

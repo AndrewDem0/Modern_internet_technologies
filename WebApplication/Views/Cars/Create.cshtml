@@ -1,69 +1,83 @@
-﻿@model WebApplication.Data.Models.Car
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model WebApplication.Data.Models.Car
 
 @{
-    ViewData["Title"] = "Додати авто";
+    ViewData["Title"] = Localizer["Add Car"];
 }
 
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Нове оголошення</h4>
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="bi bi-plus-circle"></i> @Localizer["New Listing"]</h4>
                 </div>
                 <div class="card-body p-4">
                     <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label asp-for="Model" class="form-label"></label>
-                                <input asp-for="Model" class="form-control" />
-                                <span asp-validation-for="Model" class="text-danger"></span>
+                                <label asp-for="Model" class="form-label fw-bold"></label>
+                                <input asp-for="Model" class="form-control" placeholder="@Localizer["e.g. Toyota Camry"]" />
+                                <span asp-validation-for="Model" class="text-danger small"></span>
                             </div>
+
                             <div class="col-md-6">
-                                <label asp-for="Price" class="form-label"></label>
+                                <label asp-for="Price" class="form-label fw-bold"></label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
                                     <input asp-for="Price" class="form-control" type="number" step="0.01" />
                                 </div>
+                                <span asp-validation-for="Price" class="text-danger small"></span>
                             </div>
                             
                             <div class="col-md-4">
-                                <label asp-for="Year" class="form-label"></label>
-                                <input asp-for="Year" class="form-control" />
-                            </div>
-                            <div class="col-md-4">
-                                <label asp-for="Mileage" class="form-label"></label>
-                                <input asp-for="Mileage" class="form-control" />
-                            </div>
-                            <div class="col-md-4">
-                                <label asp-for="EngineVolume" class="form-label"></label>
-                                <select asp-for="EngineVolume" class="form-select" asp-items="Html.GetEnumSelectList<WebApplication.Data.Models.EngineVolume>()"></select>
+                                <label asp-for="Year" class="form-label fw-bold"></label>
+                                <input asp-for="Year" class="form-control" placeholder="2023" />
+                                <span asp-validation-for="Year" class="text-danger small"></span>
                             </div>
 
                             <div class="col-md-4">
-                                <label asp-for="Class" class="form-label"></label>
-                                <select asp-for="Class" class="form-select" asp-items="Html.GetEnumSelectList<WebApplication.Data.Models.CarClass>()"></select>
+                                <label asp-for="Mileage" class="form-label fw-bold"></label>
+                                <div class="input-group">
+                                    <input asp-for="Mileage" class="form-control" />
+                                    <span class="input-group-text">@Localizer["km"]</span>
+                                </div>
+                                <span asp-validation-for="Mileage" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="EngineVolume" class="form-label fw-bold"></label>
+                                <select asp-for="EngineVolume" class="form-select" asp-items="@Html.GetEnumSelectList<WebApplication.Data.Models.EngineVolume>().Select(i => { i.Text = Localizer[i.Text].Value; return i; })"></select>
+                                <span asp-validation-for="EngineVolume" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="Class" class="form-label fw-bold"></label>
+                                <select asp-for="Class" class="form-select" asp-items="@Html.GetEnumSelectList<WebApplication.Data.Models.CarClass>().Select(i => { i.Text = Localizer[i.Text].Value; return i; })"></select>
                             </div>
                             <div class="col-md-4">
-                                <label asp-for="Type" class="form-label"></label>
-                                <select asp-for="Type" class="form-select" asp-items="Html.GetEnumSelectList<WebApplication.Data.Models.CarType>()"></select>
+                                <label asp-for="Type" class="form-label fw-bold"></label>
+                                <select asp-for="Type" class="form-select" asp-items="@Html.GetEnumSelectList<WebApplication.Data.Models.CarType>().Select(i => { i.Text = Localizer[i.Text].Value; return i; })"></select>
                             </div>
                              <div class="col-md-4">
-                                <label asp-for="Condition" class="form-label"></label>
-                                <select asp-for="Condition" class="form-select" asp-items="Html.GetEnumSelectList<WebApplication.Data.Models.CarCondition>()"></select>
+                                <label asp-for="Condition" class="form-label fw-bold"></label>
+                                <select asp-for="Condition" class="form-select" asp-items="@Html.GetEnumSelectList<WebApplication.Data.Models.CarCondition>().Select(i => { i.Text = Localizer[i.Text].Value; return i; })"></select>
                             </div>
 
                             <div class="col-12">
-                                <label asp-for="ImageUrl" class="form-label">Посилання на зображення</label>
+                                <label asp-for="ImageUrl" class="form-label fw-bold">@Localizer["Photo URL"]</label>
                                 <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
+                                <span asp-validation-for="ImageUrl" class="text-danger small"></span>
+                                <div class="form-text text-muted">@Localizer["Insert a direct link to the image (jpg/png)."]</div>
                             </div>
                         </div>
 
-                        <div class="mt-4 text-end">
-                            <a asp-action="Index" class="btn btn-link text-decoration-none">Скасувати</a>
-                            <button type="submit" class="btn btn-primary px-4">Створити</button>
+                        <div class="mt-4 text-end border-top pt-3">
+                            <a asp-action="Index" class="btn btn-outline-secondary me-2">@Localizer["Cancel"]</a>
+                            <button type="submit" class="btn btn-success px-4">@Localizer["Create Car"]</button>
                         </div>
                     </form>
                 </div>
